@@ -1,0 +1,22 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"id": "http://www.voa.gov.uk/schema/VOASuccessResponse",
+	"title": "VOA Success Response",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "integer"
+		},
+		"message": {
+			"type": "string"
+		},
+		"responseTime": {
+			"type": "integer"
+		}
+	},
+	"required": [
+		"message",
+		"id",
+		"responseTime"
+	]
+}

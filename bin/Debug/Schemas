@@ -1,0 +1,352 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://www.voa.gov.uk/schema/AuthorisationCommonTypes",
+  "title": "Authorisation Common Types",
+  "description": "Authorisation Common Types",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "authorisationStatusDef": {
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "DECLINED",
+        "REVOKED",
+        "PENDING",
+        "MORE_EVIDENCE_REQUIRED"
+      ]
+    },
+    "authorisationMethodDef": {
+      "type": "string",
+      "enum": [
+        "SELF_CERTIFY",
+        "RATES_BILL",
+        "OTHER",
+        "NO_EVIDENCE"
+      ]
+    },
+    "authorisationOwnerCapacityDef": {
+      "type": "string",
+      "enum": [
+        "OWNER",
+        "OCCUPIER",
+        "OWNER_OCCUPIER"
+      ]
+    },
+    "canTheDataSuppliedBeAcceptedDef": {
+      "type": "string",
+      "enum": [
+        "ACCEPT",
+        "REJECT",
+        "ESCALATE"
+      ]
+    },
+    "authorisedPartyCapacityDef": {
+      "type": "string",
+      "enum": [
+        "AGENT"
+      ]
+    },
+    "authorisedPartyStatusDef": {
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "DECLINED",
+        "REVOKED",
+        "PENDING",
+        "TIMED_OUT"
+      ]
+    },
+    "authorisationNoteDef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "createDatetime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdBy",
+        "createDatetime",
+        "content"
+      ]
+    },
+    "ruleResultDef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "ruleName": {
+          "type": "string"
+        },
+        "ruleVersion": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "executionDatetime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ruleResults": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "ruleName",
+        "ruleVersion",
+        "result",
+        "executionDatetime",
+        "ruleResults"
+      ]
+    },
+    "uploadedFileDef": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "createDatetime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidenceType": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "caseLinkDef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "caseId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "ccaCaseRef": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "caseId",
+        "ccaCaseRef",
+        "startDate"
+      ]
+    },
+    "authorisedPartyPermissionLevelDef": {
+      "type": "string",
+      "enum": [
+        "START_AND_CONTINUE",
+        "CONTINUE_ONLY",
+        "NOT_PERMITTED"
+      ]
+    },
+    "authorisedPartyPermissionDef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "checkPermission": {
+          "$ref": "#/definitions/authorisedPartyPermissionLevelDef"
+        },
+        "challengePermission": {
+          "$ref": "#/definitions/authorisedPartyPermissionLevelDef"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "checkPermission",
+        "challengePermission"
+      ]
+    },
+    "authorisedPartyDef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "authorisedPartyOrganisationId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "authorisedPartyCapacity": {
+          "$ref": "#/definitions/authorisedPartyCapacityDef"
+        },
+        "authorisedPartyStatus": {
+          "$ref": "#/definitions/authorisedPartyStatusDef"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "submissionId": {
+          "type": "string"
+        },
+        "caseLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/caseLinkDef"
+          }
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/authorisedPartyPermissionDef"
+          }
+        }
+      },
+      "required": [
+        "authorisedPartyOrganisationId",
+        "authorisedPartyCapacity",
+        "authorisedPartyStatus",
+        "startDate",
+        "submissionId"
+      ]
+    },
+    "authorisationDef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "uarn": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "authorisationOwnerOrganisationId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "authorisationOwnerPersonId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999999999999999
+        },
+        "authorisationStatus": {
+          "$ref": "#/definitions/authorisationStatusDef"
+        },
+        "authorisationMethod": {
+          "$ref": "#/definitions/authorisationMethodDef"
+        },
+        "authorisationOwnerCapacity": {
+          "$ref": "#/definitions/authorisationOwnerCapacityDef"
+        },
+        "createDatetime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "submissionId": {
+          "type": "string"
+        },
+        "selfCertificationDeclarationFlag": {
+          "type": "boolean"
+        },
+        "parties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/authorisedPartyDef"
+          }
+        },
+        "uploadedFiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uploadedFileDef"
+          }
+        },
+        "authorisationNotes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/authorisationNoteDef"
+          }
+        },
+        "ruleResults": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ruleResultDef"
+          }
+        },
+        "canTheDataSuppliedBeAccepted": {
+          "$ref": "#/definitions/canTheDataSuppliedBeAcceptedDef"
+        },
+        "actionRequiredBy": {
+          "type": "string",
+          "format": "date"
+        },
+        "reasonForDecision": {
+          "type": "string"
+        },
+        "additionalDetails": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uarn",
+        "authorisationOwnerOrganisationId",
+        "authorisationOwnerPersonId",
+        "authorisationStatus",
+        "authorisationMethod",
+        "authorisationOwnerCapacity",
+        "createDatetime",
+        "startDate",
+        "submissionId",
+        "selfCertificationDeclarationFlag"
+      ]
+    }
+  }
+}
